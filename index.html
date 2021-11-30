@@ -46,25 +46,25 @@
 
   <script>
     var user = {
-      firstName: 'Bob',
-      lastName: 'Loblaw',
-      key: 'UNIQUE IDENTIFIER',
-      custom: {
-        groups: 'beta_testers'
-      }
+      key: 'UNIQUE IDENTIFIER'
     };
   
-    var div = document.createElement('div');
-    document.body.appendChild(div);
-  
-    div.appendChild(document.createTextNode('Initializing...'));
+    let keyValue = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+    let charactersLength = characters.length;
+    for (var i = 0; i < charactersLength; i++) {
+      keyValue += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    user.key = keyValue;
+    console.log(user);
   
     var ldclient = LDClient.initialize('61a5dd399ef8801188f34382', user);
   
     function render() {
-      var shouldShow = ldclient.variation('blue-background', false);
-      var label = (shouldShow ? 'Showing' : 'Not showing') + ' your feature to ' + user.key;
-      div.replaceChild(document.createTextNode(label), div.firstChild);
+      var shouldShow = ldclient.variation('blue-background');
+      if (shouldShow) {
+        document.querySelector('body').classList.add("blue");
+      }
     }
   
     ldclient.on('ready', render);
