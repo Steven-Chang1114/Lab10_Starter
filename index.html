@@ -68,25 +68,17 @@
   </main>
 
   <script>
+    const random = (Math.random() + 1).toString(36).substring(7);
     var user = {
-      key: 'UNIQUE IDENTIFIER'
+      key: random
     };
-  
-    let keyValue = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
-    let charactersLength = characters.length;
-    for (var i = 0; i < charactersLength; i++) {
-      keyValue += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    user.key = keyValue;
-    console.log(user);
   
     var ldclient = LDClient.initialize('61a5dd399ef8801188f34382', user);
   
     function render() {
-      var shouldShow = ldclient.variation('blue-background');
-      if (shouldShow) {
-        document.querySelector('body').classList.add("blue");
+      var shouldShow = ldclient.variation('blue-background', false);
+      if(shouldShow){
+        document.body.classList.add('blue');
       }
     }
   
